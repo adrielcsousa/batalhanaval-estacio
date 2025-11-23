@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h> // Necessário para a função abs()
+
+// Constantes
+#define LINHAS 10
+#define COLUNAS 10
+#define TAM_MATRIZ_HABILIDADE 5 // Tamanho das matrizes de efeito (5x5)
+#define CENTRO_HABILIDADE 2     // O centro de uma matriz 5x5 é o índice 2
+
+// Identificadores do Tabuleiro
+#define AGUA 0
+#define NAVIO 3
+#define AFETADO 5 // Valor visual para área de efeito da habilidade
+
+int main() {
+    // 1. INICIALIZAÇÃO DO TABULEIRO (10x10)
+    int tabuleiro[LINHAS][COLUNAS];
+    
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = 0; j < COLUNAS; j++) {
+            tabuleiro[i][j] = AGUA;
+        }
+    }
+
+    // 2. POSICIONAMENTO DOS NAVIOS (Simplificado para focar nas habilidades)
+    // Vamos colocar alguns navios fixos para visualizar se as habilidades os atingem.
+    
+    // Navio Horizontal
+    tabuleiro[2][2] = NAVIO; tabuleiro[2][3] = NAVIO; tabuleiro[2][4] = NAVIO;
+    // Navio Vertical
+    tabuleiro[6][7] = NAVIO; tabuleiro[7][7] = NAVIO; tabuleiro[8][7] = NAVIO;
+    // Navio Diagonal
+    tabuleiro[1][8] = NAVIO; tabuleiro[2][7] = NAVIO; tabuleiro[3][6] = NAVIO;
+
+    // 3
