@@ -1,0 +1,90 @@
+#include <stdio.h>
+
+// Definição 
+#define LINHAS 10
+#define COLUNAS 10
+#define TAM_NAVIO 3
+#define AGUA 0
+#define PARTE_NAVIO 3
+
+int main() {
+    // --- 1. REPRESENTAR O TABULEIRO ---
+    // Declaração da matriz bidimensional 10x10
+    int tabuleiro[LINHAS][COLUNAS];
+    
+    // Declaração dos vetores que representam os navios (preenchidos com 3)
+    // Conforme o requisito: copiamos estes valores para o tabuleiro depois.
+    int navioHorizontal[TAM_NAVIO] = {PARTE_NAVIO, PARTE_NAVIO, PARTE_NAVIO};
+    int navioVertical[TAM_NAVIO] = {PARTE_NAVIO, PARTE_NAVIO, PARTE_NAVIO};
+
+    // Inicialização do tabuleiro: preenchendo todas as posições com 0 (Água)
+    // Variáveis 'i' controlam as linhas e 'j' as colunas
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = 0; j < COLUNAS; j++) {
+            tabuleiro[i][j] = AGUA;
+        }
+    }
+
+    // --- 2. POSICIONAR OS NAVIOS ---
+    
+    // Definição das coordenadas iniciais (Hardcoded conforme simplificação)
+    // Nota: O índice começa em 0, então linha 2 é a terceira linha visualmente.
+    
+    // NAVIO 1: Horizontal
+    // Estratégia: Linha fixa, Coluna varia
+    int inicioLinhaNavio1 = 2;
+    int inicioColunaNavio1 = 4;
+
+    // NAVIO 2: Vertical
+    // Estratégia: Coluna fixa, Linha varia
+    int inicioLinhaNavio2 = 5;
+    int inicioColunaNavio2 = 8;
+
+    // Validação básica (garantir que não sai do tabuleiro)
+    // Para horizontal: coluna inicial + tamanho não pode passar do limite
+    // Para vertical: linha inicial + tamanho não pode passar do limite
+    if (inicioColunaNavio1 + TAM_NAVIO <= COLUNAS && inicioLinhaNavio2 + TAM_NAVIO <= LINHAS) {
+        
+        // Loop para posicionar o Navio Horizontal
+        // Copiamos o valor do vetor 'navioHorizontal' para a matriz 'tabuleiro'
+        for (int i = 0; i < TAM_NAVIO; i++) {
+            // A linha se mantém (inicioLinhaNavio1)
+            // A coluna avança (inicioColunaNavio1 + i)
+            tabuleiro[inicioLinhaNavio1][inicioColunaNavio1 + i] = navioHorizontal[i];
+        }
+
+        // Loop para posicionar o Navio Vertical
+        // Copiamos o valor do vetor 'navioVertical' para a matriz 'tabuleiro'
+        for (int i = 0; i < TAM_NAVIO; i++) {
+            // A linha avança (inicioLinhaNavio2 + i)
+            // A coluna se mantém (inicioColunaNavio2)
+            tabuleiro[inicioLinhaNavio2 + i][inicioColunaNavio2] = navioVertical[i];
+        }
+        
+    } else {
+        printf("Erro: Coordenadas inválidas. O navio ultrapassa os limites do tabuleiro.\n");
+    }
+
+    // --- 3. EXIBIR O TABULEIRO ---
+    printf("\n--- BATALHA NAVAL: TABULEIRO ---\n\n");
+
+    // Cabeçalho das colunas (opcional, para melhor visualização)
+    printf("  "); // Espaço para alinhar com os números das linhas
+    for(int k = 0; k < COLUNAS; k++) {
+        printf("%d ", k);
+    }
+    printf("\n");
+
+    // Loops aninhados para imprimir a matriz
+    for (int i = 0; i < LINHAS; i++) {
+        printf("%d ", i); // Imprime o número da linha atual
+        
+        for (int j = 0; j < COLUNAS; j++) {
+            // Imprime o valor da célula seguido de um espaço
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n"); // Quebra de linha ao final de cada linha da matriz
+    }
+
+    return 0;
+}
