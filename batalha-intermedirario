@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+// Constantes globais
+#define LINHAS 10
+#define COLUNAS 10
+#define TAM_NAVIO 3
+#define AGUA 0
+#define NAVIO 3
+
+int main() {
+    // 1. INICIALIZAÇÃO DO TABULEIRO
+    int tabuleiro[LINHAS][COLUNAS];
+    
+    // Preenchendo com Água (0)
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = 0; j < COLUNAS; j++) {
+            tabuleiro[i][j] = AGUA;
+        }
+    }
+
+    // --- DEFINIÇÃO E POSICIONAMENTO DOS NAVIOS ---
+    
+    // Variável de controle para validação
+    int valido; 
+
+    // ----------------------------------------
+    // NAVIO 1: HORIZONTAL (Linha fixa, Coluna aumenta)
+    // ----------------------------------------
+    int n1_linha = 1;
+    int n1_coluna = 1;
+    valido = 1; // Assume verdadeiro
+
+    // Validação de Limites
+    if (n1_coluna + TAM_NAVIO > COLUNAS) valido = 0;
+    
+    // Validação de Sobreposição (Loop de checagem)
+    if (valido) {
+        for (int i = 0; i < TAM_NAVIO; i++) {
+            if (tabuleiro[n1_linha][n1_coluna + i] != AGUA) valido = 0;
+        }
+    }
+
+    // Posicionamento
+    if (valido) {
+        for (int i = 0; i < TAM_NAVIO; i++) {
+            tabuleiro[n1_linha][n1_coluna + i] = NAVIO;
+        }
+        printf("Navio 1 (Horizontal) posicionado com sucesso.\n");
+    } else {
+        printf("Erro ao posicionar Navio 1.\n");
+    }
+
+    // ----------------------------------------
+    // NAVIO 2: VERTICAL (Coluna fixa, Linha aumenta)
+    // ----------------------------------------
+    int n2_linha
